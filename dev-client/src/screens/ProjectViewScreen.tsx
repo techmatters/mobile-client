@@ -15,23 +15,58 @@
  * along with this program. If not, see https://www.gnu.org/licenses/.
  */
 
-import {useNavToBottomTabsAndShowSyncError} from 'terraso-mobile-client/components/dataRequirements/handleMissingData';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
+
+import {Project} from 'terraso-client-shared/project/projectTypes';
+
+import {usePopNavigationAndShowSyncError} from 'terraso-mobile-client/components/dataRequirements/handleMissingData';
 import {
   ScreenDataRequirements,
   useMemoizedRequirements,
 } from 'terraso-mobile-client/components/dataRequirements/ScreenDataRequirements';
 import {ProjectRoleContextProvider} from 'terraso-mobile-client/context/ProjectRoleContext';
 import {AppBar} from 'terraso-mobile-client/navigation/components/AppBar';
+import {useNavigation} from 'terraso-mobile-client/navigation/hooks/useNavigation';
 import {ProjectTabNavigator} from 'terraso-mobile-client/navigation/navigators/ProjectTabNavigator';
 import {ScreenScaffold} from 'terraso-mobile-client/screens/ScreenScaffold';
 import {useSelector} from 'terraso-mobile-client/store';
 
+type SetProjectDeletedState = Dispatch<SetStateAction<boolean>>;
+
+export const ProjectDeletionContext = createContext<SetProjectDeletedState>(
+  () => {},
+);
+
 type Props = {projectId: string};
 
 export const ProjectViewScreen = ({projectId}: Props) => {
-  const project = useSelector(state => state.project.projects[projectId]);
-  const handleMissingProject = useNavToBottomTabsAndShowSyncError();
+  const navigation = useNavigation();
 
+  const project = useSelector(
+    state => state.project.projects[projectId],
+  ) as Project | null;
+
+  // FYI: I suspect if projectId could change within the same component instance,
+  // we'd want to track projectPurposelyDeleted independently for each project.
+  // But currently this isn't an issue because the projectId prop only changes
+  // when the whole screen gets unmounted and a new one gets mounted.
+  const [projectPurposelyDeleted, setProjectPurposelyDeleted] = useState(false);
+
+  const popNavAndShowSyncError = usePopNavigationAndShowSyncError();
+  const handleMissingProject = useCallback(() => {
+    // If *you* deleted the project, navigate and avoid showing the sync error
+    // (as this screen re-renders when project becomes null, but before the dispatched delete ends)
+    projectPurposelyDeleted ? navigation.pop() : popNavAndShowSyncError();
+  }, [projectPurposelyDeleted, navigation, popNavAndShowSyncError]);
+
+  // Child tabs don't need to duplicate the requirements here as long as their updates
+  // cause a rerender here
   const requirements = useMemoizedRequirements([
     {data: project, doIfMissing: handleMissingProject},
   ]);
@@ -39,13 +74,15 @@ export const ProjectViewScreen = ({projectId}: Props) => {
   return (
     <ScreenDataRequirements requirements={requirements}>
       {() => (
-        <ProjectRoleContextProvider projectId={projectId}>
-          <ScreenScaffold
-            AppBar={<AppBar title={project?.name} />}
-            BottomNavigation={null}>
-            <ProjectTabNavigator projectId={projectId} />
-          </ScreenScaffold>
-        </ProjectRoleContextProvider>
+        <ProjectDeletionContext.Provider value={setProjectPurposelyDeleted}>
+          <ProjectRoleContextProvider projectId={projectId}>
+            <ScreenScaffold
+              AppBar={<AppBar title={project?.name} />}
+              BottomNavigation={null}>
+              <ProjectTabNavigator projectId={projectId} />
+            </ScreenScaffold>
+          </ProjectRoleContextProvider>
+        </ProjectDeletionContext.Provider>
       )}
     </ScreenDataRequirements>
   );
