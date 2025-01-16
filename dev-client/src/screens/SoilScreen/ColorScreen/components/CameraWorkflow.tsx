@@ -38,7 +38,7 @@ export const CameraWorkflow = (props: SoilPitInputScreenProps) => {
 
   const onPickImage = useCallback(
     (photo: Photo) => {
-      navigation.navigate('COLOR_ANALYSIS', {
+      navigation.navigateDeprecated('COLOR_ANALYSIS', {
         photo: photo,
         pitProps: props,
       });
@@ -47,7 +47,7 @@ export const CameraWorkflow = (props: SoilPitInputScreenProps) => {
   );
 
   const onUseGuide = useCallback(
-    () => navigation.navigate('COLOR_GUIDE', props),
+    () => navigation.navigateDeprecated('COLOR_GUIDE', props),
     [props, navigation],
   );
 

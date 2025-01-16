@@ -81,7 +81,7 @@ export const SiteSettingsScreen = ({siteId}: Props) => {
 
   const onDelete = useCallback(async () => {
     await dispatch(deleteSite(site));
-    navigation.navigate('BOTTOM_TABS');
+    navigation.navigateDeprecated('BOTTOM_TABS');
   }, [dispatch, navigation, site]);
 
   const handleMissingSite = useNavToBottomTabsAndShowSyncError();

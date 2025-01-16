@@ -52,7 +52,7 @@ export const SiteNotesScreen = ({siteId}: {siteId: string}) => {
   );
 
   const onAddNote = useCallback(() => {
-    navigation.navigate('ADD_SITE_NOTE', {siteId: siteId});
+    navigation.navigateDeprecated('ADD_SITE_NOTE', {siteId: siteId});
   }, [navigation, siteId]);
 
   const isOffline = useIsOffline();

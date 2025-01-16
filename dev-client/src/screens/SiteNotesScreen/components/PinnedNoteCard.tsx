@@ -34,7 +34,7 @@ export const PinnedNoteCard = ({project}: Props) => {
   const navigation = useNavigation();
 
   const onShowNote = useCallback(() => {
-    navigation.navigate('READ_PINNED_NOTE', {
+    navigation.navigateDeprecated('READ_PINNED_NOTE', {
       projectId: project.id,
     });
   }, [navigation, project]);

@@ -40,7 +40,7 @@ export const CreateSiteButton = ({
 
   const navigation = useNavigation();
   const onCreate = useCallback(() => {
-    navigation.navigate('CREATE_SITE', {
+    navigation.navigateDeprecated('CREATE_SITE', {
       coords,
       elevation: elevation,
     });

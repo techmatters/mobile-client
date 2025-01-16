@@ -69,7 +69,7 @@ export const SiteTabsScreen = (props: Props) => {
     return (
       <AppBarIconButton
         name="settings"
-        onPress={() => navigation.navigate('SITE_SETTINGS', {siteId})}
+        onPress={() => navigation.navigateDeprecated('SITE_SETTINGS', {siteId})}
       />
     );
   }, [siteId, navigation, userRole]);

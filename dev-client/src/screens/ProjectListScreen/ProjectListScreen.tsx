@@ -60,7 +60,7 @@ export const ProjectListScreen = () => {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const onPress = useCallback(
-    () => navigation.navigate('CREATE_PROJECT'),
+    () => navigation.navigateDeprecated('CREATE_PROJECT'),
     [navigation],
   );
   const isLoadingData = useSelector(

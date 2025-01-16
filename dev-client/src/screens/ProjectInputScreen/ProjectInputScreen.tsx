@@ -64,7 +64,7 @@ export const ProjectInputScreen = ({
   const dispatch = useDispatch();
 
   const onEditPinnedNote = useCallback(() => {
-    return navigation.navigate('EDIT_PINNED_NOTE', {
+    return navigation.navigateDeprecated('EDIT_PINNED_NOTE', {
       projectId: project.id,
     });
   }, [navigation, project]);
