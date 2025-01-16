@@ -69,7 +69,7 @@ export const AddUserToProjectRoleScreen = ({projectId, userId}: Props) => {
     } catch (e) {
       console.error(e);
     }
-    navigation.navigate('PROJECT_VIEW', {projectId: projectId});
+    navigation.navigateDeprecated('PROJECT_VIEW', {projectId: projectId});
     navigation.dispatch(TabActions.jumpTo(TabRoutes.TEAM));
   }, [dispatch, projectId, user, selectedRole, navigation]);
 

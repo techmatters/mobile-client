@@ -28,7 +28,7 @@ export function DeleteAccountItem() {
   const {isPending} = useUserDeletionRequests();
   const navigation = useNavigation();
   const onDeleteAccount = useCallback(
-    () => navigation.navigate('DELETE_ACCOUNT'),
+    () => navigation.navigateDeprecated('DELETE_ACCOUNT'),
     [navigation],
   );
 

@@ -86,7 +86,7 @@ export const ProjectTeamScreen = ({route}: Props) => {
     (userId: string, membershipId: string) => {
       return async () => {
         if (userRole === 'MANAGER') {
-          navigation.navigate('MANAGE_TEAM_MEMBER', {
+          navigation.navigateDeprecated('MANAGE_TEAM_MEMBER', {
             userId,
             membershipId,
             projectId: route.params.projectId,
@@ -116,7 +116,7 @@ export const ProjectTeamScreen = ({route}: Props) => {
               <AddButton
                 label={t('projects.team.add')}
                 onPress={() =>
-                  navigation.navigate('ADD_USER_PROJECT', {
+                  navigation.navigateDeprecated('ADD_USER_PROJECT', {
                     projectId: route.params.projectId,
                   })
                 }

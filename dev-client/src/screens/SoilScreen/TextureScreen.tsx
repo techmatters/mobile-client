@@ -113,7 +113,7 @@ export const TextureScreen = (props: SoilPitInputScreenProps) => {
   );
 
   const onGuide = useCallback(
-    () => navigation.navigate('TEXTURE_GUIDE', props),
+    () => navigation.navigateDeprecated('TEXTURE_GUIDE', props),
     [props, navigation],
   );
 

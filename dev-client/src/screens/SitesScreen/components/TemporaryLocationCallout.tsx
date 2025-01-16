@@ -69,7 +69,7 @@ export const TemporaryLocationCallout = ({
   const topSoilMatch = useMemo(() => getTopMatch(soilIdData), [soilIdData]);
 
   const onLearnMore = useCallback(() => {
-    navigation.navigate('TEMP_LOCATION', {
+    navigation.navigateDeprecated('TEMP_LOCATION', {
       coords,
       elevation: elevation.value,
     });

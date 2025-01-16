@@ -187,7 +187,7 @@ export function ProjectSitesScreen({
   const {t} = useTranslation();
   const transferCallback = useCallback(
     () =>
-      navigation.navigate('SITE_TRANSFER_PROJECT', {
+      navigation.navigateDeprecated('SITE_TRANSFER_PROJECT', {
         projectId: String(projectId),
       }),
     [navigation, projectId],

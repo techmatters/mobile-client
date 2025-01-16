@@ -97,11 +97,11 @@ export const ColorAnalysisHomeScreen = () => {
   }, [reference, soil, dispatchColor]);
 
   const onReference = useCallback(() => {
-    colorAnalysisNavigation.navigate('COLOR_CROP_REFERENCE');
+    colorAnalysisNavigation.navigateDeprecated('COLOR_CROP_REFERENCE');
   }, [colorAnalysisNavigation]);
 
   const onSoil = useCallback(() => {
-    colorAnalysisNavigation.navigate('COLOR_CROP_SOIL');
+    colorAnalysisNavigation.navigateDeprecated('COLOR_CROP_SOIL');
   }, [colorAnalysisNavigation]);
 
   const unexpectedColorActions = useMemo(

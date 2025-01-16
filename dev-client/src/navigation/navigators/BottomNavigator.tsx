@@ -37,17 +37,17 @@ export const BottomNavigator = memo(
     );
 
     const onSites = useCallback(
-      () => navigation.navigate('SITES'),
+      () => navigation.navigateDeprecated('SITES'),
       [navigation],
     );
 
     const onProject = useCallback(
-      () => navigation.navigate('PROJECT_LIST'),
+      () => navigation.navigateDeprecated('PROJECT_LIST'),
       [navigation],
     );
 
     const onSettings = useCallback(
-      () => navigation.navigate('SETTINGS'),
+      () => navigation.navigateDeprecated('SETTINGS'),
       [navigation],
     );
 
