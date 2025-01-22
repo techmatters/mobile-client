@@ -88,6 +88,8 @@ export const SiteSettingsScreen = ({siteId}: Props) => {
     navigation.navigate('BOTTOM_TABS');
   }, [dispatch, navigation, site]);
 
+  // TODO-cknipe: Remove this comment
+
   const userCanEditSite = useRoleCanEditSite(siteId);
   const handleMissingSite = useNavToBottomTabsAndShowSyncError();
   const handleInsufficientPermissions = usePopNavigationAndShowSyncError();
